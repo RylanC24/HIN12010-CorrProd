@@ -1,0 +1,7 @@
+#!/bin/sh
+rm -rf /net/hisrv0001/home/davidlw/scratch1/joblogs
+mkdir /net/hisrv0001/home/davidlw/scratch1/joblogs
+rm -rf /net/hisrv0001/home/davidlw/scratch1/subfiles
+mkdir /net/hisrv0001/home/davidlw/scratch1/subfiles
+rm -rf /net/hisrv0001/home/davidlw/scratch1/dag
+mkdir /net/hisrv0001/home/davidlw/scratch1/dag

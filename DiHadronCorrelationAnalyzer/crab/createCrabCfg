@@ -1,0 +1,406 @@
+#!/bin/bash
+
+pdname=HIMinBiasUPC
+#dataset=/HIMinBiasUPC/davidlw-Skim_rereco_pixeltracks_v1-4b65ef5aa7a26abf1f962cd25f7df02d/USER
+dataset=/HIMinBiasUPC/davidlw-Skim_rereco_generaltracks_MB_v1-9c1b4b9b6b9ff3e493a474ba7d01bc76/USER
+datasetucc=/HIMinBiasUPC/davidlw-Skim_rereco_generaltracks_UCC_v1-1407d97c78fb8eac4c87a1e8dfca2bd9/USER
+njobs=20
+
+### epetadeco
+tag=pttrg053_ptassallweight_etaass45_eff0_v15
+#tag=pttrgallweighttower_ptassallweight_etaass45_eff1_v9
+type=epetadeco
+
+### ebyeflow
+#tag=pttrg13_eff0_v1
+#type=ebyeflow
+
+cat > crab_${type}_cent002.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $datasetucc
+pset                    = ../cfg/${type}_cent002_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent002_$tag
+ui_working_dir = $pdname/${type}_cent002_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent01.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent01_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent01_$tag
+ui_working_dir = $pdname/${type}_cent01_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent05.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent05_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent05_$tag
+ui_working_dir = $pdname/${type}_cent05_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent510.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent510_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent510_$tag
+ui_working_dir = $pdname/${type}_cent510_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent1020.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent1020_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent1020_$tag
+ui_working_dir = $pdname/${type}_cent1020_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent2030.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent2030_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent2030_$tag
+ui_working_dir = $pdname/${type}_cent2030_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent3040.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent3040_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent3040_$tag
+ui_working_dir = $pdname/${type}_cent3040_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent4050.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent4050_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent4050_$tag
+ui_working_dir = $pdname/${type}_cent4050_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > crab_${type}_cent5060.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_cent5060_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_cent5060_$tag
+ui_working_dir = $pdname/${type}_cent5060_$tag
+check_user_remote_dir   = 0
+
+[GRID]
+max_rss = 3500
+EOF
+
+cat > submit_${type} << EOF 
+crab -create -cfg crab_${type}_cent5060.cfg
+crab -create -cfg crab_${type}_cent4050.cfg
+crab -create -cfg crab_${type}_cent3040.cfg
+crab -create -cfg crab_${type}_cent2030.cfg
+crab -create -cfg crab_${type}_cent1020.cfg
+crab -create -cfg crab_${type}_cent510.cfg
+crab -create -cfg crab_${type}_cent05.cfg
+crab -create -cfg crab_${type}_cent01.cfg
+crab -create -cfg crab_${type}_cent002.cfg
+crab -submit 1-500 -c $pdname/${type}_cent002_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent002_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent002_$tag
+crab -submit 1-500 -c $pdname/${type}_cent01_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent01_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent01_$tag
+crab -submit 1-500 -c $pdname/${type}_cent05_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent05_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent05_$tag
+crab -submit 1-500 -c $pdname/${type}_cent510_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent510_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent510_$tag
+crab -submit 1-500 -c $pdname/${type}_cent1020_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent1020_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent1020_$tag
+crab -submit 1-500 -c $pdname/${type}_cent2030_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent2030_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent2030_$tag
+crab -submit 1-500 -c $pdname/${type}_cent3040_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent3040_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent3040_$tag
+crab -submit 1-500 -c $pdname/${type}_cent4050_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent4050_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent4050_$tag
+crab -submit 1-500 -c $pdname/${type}_cent5060_$tag
+crab -submit 501-1000 -c $pdname/${type}_cent5060_$tag
+crab -submit 1001-1500 -c $pdname/${type}_cent5060_$tag
+EOF
+
+chmod u+x submit_${type}
+
+hadoopdir=/mnt/hadoop/cms/store/user/davidlw/$pdname
+scratchdir=/export/d00/scratch/davidlw/DiHadronCorrelations/outputs_312/HIData_Minbias_2760GeV/merged
+cat > merge_${type} << EOF 
+nohup hadd -f $scratchdir/${type}_cent5060_seq1_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq2_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_2*.root > /tmp/nohup11.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq3_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_3*.root > /tmp/nohup12.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq4_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_4*.root > /tmp/nohup13.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq5_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_5*.root > /tmp/nohup14.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq6_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_6*.root > /tmp/nohup15.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq7_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_7*.root > /tmp/nohup16.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq8_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_8*.root > /tmp/nohup17.out &
+nohup hadd -f $scratchdir/${type}_cent5060_seq9_$tag.root $hadoopdir/${type}_cent5060_$tag/${type}_9*.root > /tmp/nohup18.out &
+
+nohup hadd -f $scratchdir/${type}_cent4050_seq1_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_1*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq2_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_2*.root > /tmp/nohup21.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq3_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_3*.root > /tmp/nohup22.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq4_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_4*.root > /tmp/nohup23.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq5_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_5*.root > /tmp/nohup24.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq6_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_6*.root > /tmp/nohup25.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq7_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_7*.root > /tmp/nohup26.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq8_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_8*.root > /tmp/nohup27.out &
+nohup hadd -f $scratchdir/${type}_cent4050_seq9_$tag.root $hadoopdir/${type}_cent4050_$tag/${type}_9*.root > /tmp/nohup28.out &
+
+nohup hadd -f $scratchdir/${type}_cent3040_seq1_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq2_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq3_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq4_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq5_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq6_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq7_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq8_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent3040_seq9_$tag.root $hadoopdir/${type}_cent3040_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent2030_seq1_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq2_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq3_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq4_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq5_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq6_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq7_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq8_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent2030_seq9_$tag.root $hadoopdir/${type}_cent2030_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent1020_seq1_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq2_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq3_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq4_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq5_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq6_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq7_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq8_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent1020_seq9_$tag.root $hadoopdir/${type}_cent1020_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent510_seq1_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq2_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq3_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq4_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq5_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq6_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq7_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq8_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent510_seq9_$tag.root $hadoopdir/${type}_cent510_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent05_seq1_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq2_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq3_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq4_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq5_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq6_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq7_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq8_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent05_seq9_$tag.root $hadoopdir/${type}_cent05_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent01_seq1_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq2_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq3_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq4_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq5_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq6_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq7_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq8_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent01_seq9_$tag.root $hadoopdir/${type}_cent01_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent002_seq1_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_1*.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq2_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_2*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq3_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_3*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq4_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_4*.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq5_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_5*.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq6_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_6*.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq7_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_7*.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq8_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_8*.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent002_seq9_$tag.root $hadoopdir/${type}_cent002_$tag/${type}_9*.root > /tmp/nohup8.out &
+
+nohup hadd -f $scratchdir/${type}_cent5060_$tag.root $scratchdir/${type}_cent5060_seq*_$tag.root > /tmp/nohup.out &
+nohup hadd -f $scratchdir/${type}_cent4050_$tag.root $scratchdir/${type}_cent4050_seq*_$tag.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_cent3040_$tag.root $scratchdir/${type}_cent3040_seq*_$tag.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_cent2030_$tag.root $scratchdir/${type}_cent2030_seq*_$tag.root > /tmp/nohup3.out &
+nohup hadd -f $scratchdir/${type}_cent1020_$tag.root $scratchdir/${type}_cent1020_seq*_$tag.root > /tmp/nohup4.out &
+nohup hadd -f $scratchdir/${type}_cent510_$tag.root $scratchdir/${type}_cent510_seq*_$tag.root > /tmp/nohup5.out &
+nohup hadd -f $scratchdir/${type}_cent05_$tag.root $scratchdir/${type}_cent05_seq*_$tag.root > /tmp/nohup6.out &
+nohup hadd -f $scratchdir/${type}_cent01_$tag.root $scratchdir/${type}_cent01_seq*_$tag.root > /tmp/nohup7.out &
+nohup hadd -f $scratchdir/${type}_cent002_$tag.root $scratchdir/${type}_cent002_seq*_$tag.root > /tmp/nohup8.out &
+EOF
+
+chmod u+x merge_${type}

@@ -1,0 +1,6 @@
+#!/bin/sh
+rm -rf joblogs subfiles dag
+ln -s /net/hisrv0001/home/davidlw/scratch1/joblogs joblogs
+ln -s /net/hisrv0001/home/davidlw/scratch1/subfiles subfiles
+ln -s /net/hisrv0001/home/davidlw/scratch1/dag dag
+

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+hostname | awk '{print "Running on " $1}'
+
+dir=$CMSSW_BASE/src/FlowCorrAna/DiHadronCorrelationAnalyzer
+#cd $dir
+dataset=$1
+export TAG=$2
+addition=$3
+ffrom=$4
+fto=$5
+zvtxmin=$6
+zvtxmax=$7
+nmin=$8
+nmax=$9
+centmin=${10}
+centmax=${11}
+
+SETUPFILE_BASE="$dir/prod/setupfiles/setupfile_BASE"
+SETUPFILE="$dir/prod/setupfiles/setupfile_$dataset"
+
+source $SETUPFILE_BASE
+source $SETUPFILE
+
+echo "------------------------------------------------------------"
+echo "SETUPFILE=$SETUPFILE"
+echo "FILESETNAME=$FILESETNAME"
+echo "------------------------------------------------------------"
+
+export TAG="${TAG}_${addition}"
+
+#currentdir=`pwd`
+#export SCRAM_ARCH=slc5_amd64_gcc434
+#source /osg/app/cmssoft/cms/cmsset_default.sh
+#cd /net/hisrv0001/home/davidlw/OSG_CMSSW/CMSSW_5_1_3_correlations/src
+#eval `scramv1 runtime -sh`
+#cd $currentdir
+
+root.exe -b $dir/test/rootlogon.C <<EOF
+.L $dir/test/RunDiHadronCorrelationMultiAnalysisFWLite.C+
+RunDiHadronCorrelationMultiAnalysisFWLite(${ffrom},${fto},${zvtxmin},${zvtxmax},${nmin},${nmax},${centmin},${centmax});
+.q
+EOF
+
+echo ""
+echo "ls -hl /tmp/"
+ls -hl /tmp/
+
+scp /tmp/${EVENTTYPE}_${TAG}_ffrom${ffrom}_fto${fto}*.root hidsk0001:$OUTPUTDIR/$EVENTTYPE/unmerged/
+rm /tmp/${EVENTTYPE}_${TAG}_ffrom${ffrom}_fto${fto}*.root

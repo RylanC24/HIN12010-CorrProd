@@ -1,0 +1,27 @@
+#!/bin/sh
+
+dir=$CMSSW_BASE/src/FlowCorrAna/DiHadronCorrelationAnalyzer
+dataset=$1
+export TAG=$2
+addition=$3
+
+SETUPFILE_BASE="$dir/prod/setupfiles/setupfile_BASE"
+SETUPFILE="$dir/prod/setupfiles/setupfile_$dataset"
+
+source ${SETUPFILE_BASE}
+source ${SETUPFILE}
+
+export TAG="${TAG}_${addition}"
+
+for ((k=0; k<${#CENTMIN[@]}; k++))
+do
+ for ((i=0; i<${#NMIN[@]}; i++))
+ do
+#  hadd -f ${OUTPUTDIR}/${EVENTTYPE}/merged/${EVENTTYPE}\_${TAG}_nmin${NMIN[$i]}_nmax${NMAX[$i]}_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}_centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}.root ${OUTPUTDIR}/${EVENTTYPE}/unmerged/${EVENTTYPE}_${TAG}_*_nmin${NMIN[$i]}_nmax${NMAX[$i]}*_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}*centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}*.root
+  hadd -f /tmp/${EVENTTYPE}\_${TAG}_nmin${NMIN[$i]}_nmax${NMAX[$i]}_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}_centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}.root ${OUTPUTDIR}/${EVENTTYPE}/unmerged/${EVENTTYPE}_${TAG}_*_nmin${NMIN[$i]}_nmax${NMAX[$i]}*_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}*centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}*.root
+  scp /tmp/${EVENTTYPE}\_${TAG}_nmin${NMIN[$i]}_nmax${NMAX[$i]}_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}_centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}.root hidsk0001:${OUTPUTDIR}/${EVENTTYPE}/merged/
+  rm /tmp/${EVENTTYPE}\_${TAG}_nmin${NMIN[$i]}_nmax${NMAX[$i]}_etatrg${ETATRGMIN}-${ETATRGMAX}_etaass${ETAASSMIN}-${ETAASSMAX}_centmin${CENTMIN[$k]}_centmax${CENTMAX[$k]}.root
+ done
+done
+
+

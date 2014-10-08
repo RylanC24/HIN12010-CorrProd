@@ -1,0 +1,140 @@
+#!/bin/bash
+
+pdname=PAHighPt
+#dataset=/PAHighPt/davidlw-PA2013_FlowCorr_PromptReco_TrkHM_Gplus_v15-702fa69daea9da948fe2472b4d29b5b5/USER
+dataset=/PAHighPt/davidlw-PA2013_FlowCorr_PromptReco_TrkHM_Gplus_Rereco_v15-702fa69daea9da948fe2472b4d29b5b5/USER
+#dataset=/PAHighPt/davidlw-PA2013_FlowCorr_PromptReco_TrkHM_Gplus_Reverse_v15-702fa69daea9da948fe2472b4d29b5b5/USER
+njobs=10
+
+### epetadeco
+#tag=pttrg13_ptassallweight_etaass45_eff1_v10
+#tag=pttrgallweighttower_ptassallweight_etaass45_eff1_v9
+#type=epetadeco
+
+### ebyeflow
+tag=pttrg033_rereco_eff1_v3
+type=ebyeflow
+
+cat > crab_${type}_n120150_pPb.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_pPb_n120150_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_n120150_$tag
+ui_working_dir =  $pdname/${type}_n120150_$tag
+check_user_remote_dir   = 0
+EOF
+
+cat > crab_${type}_n150185_pPb.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_pPb_n150185_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_n150185_$tag
+ui_working_dir = $pdname/${type}_n150185_$tag
+check_user_remote_dir   = 0
+EOF
+
+cat > crab_${type}_n185220_pPb.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_pPb_n185220_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_n185220_$tag
+ui_working_dir = $pdname/${type}_n185220_$tag
+check_user_remote_dir   = 0
+EOF
+
+cat > crab_${type}_n220260_pPb.cfg << EOF 
+[CRAB]
+jobtype = cmssw
+scheduler = remoteGlidein
+use_server   = 0
+
+[CMSSW]
+use_dbs3 = 1 
+dbs_url                 = phys03
+datasetpath             = $dataset
+pset                    = ../cfg/${type}_pPb_n220260_cfg.py
+total_number_of_lumis   = -1 
+lumis_per_job     = $njobs 
+output_file = ${type}.root
+
+[USER]
+copy_data               = 1
+storage_element         = T2_US_MIT
+
+user_remote_dir = $pdname/${type}_n220260_$tag
+ui_working_dir = $pdname/${type}_n220260_$tag
+check_user_remote_dir   = 0
+EOF
+
+cat > submit_${type}_pPb << EOF 
+crab -create -cfg crab_${type}_n120150_pPb.cfg
+crab -create -cfg crab_${type}_n150185_pPb.cfg
+crab -create -cfg crab_${type}_n185220_pPb.cfg
+crab -create -cfg crab_${type}_n220260_pPb.cfg
+crab -submit 1-400 -c $pdname/${type}_n120150_$tag
+crab -submit 401-800 -c $pdname/${type}_n120150_$tag
+crab -submit 1-400 -c $pdname/${type}_n150185_$tag
+crab -submit 401-800 -c $pdname/${type}_n150185_$tag
+crab -submit 1-400 -c $pdname/${type}_n185220_$tag
+crab -submit 401-800 -c $pdname/${type}_n185220_$tag
+crab -submit 1-400 -c $pdname/${type}_n220260_$tag
+crab -submit 401-800 -c $pdname/${type}_n220260_$tag
+EOF
+
+chmod u+x submit_${type}_pPb
+
+hadoopdir=/mnt/hadoop/cms/store/user/davidlw/$pdname
+scratchdir=/export/d00/scratch/davidlw/DiHadronCorrelations/outputs_312/PAData_Minbias_5TeV/merged
+cat > merge_${type}_pPb << EOF 
+nohup hadd -f $scratchdir/${type}_n120150_$tag.root $hadoopdir/${type}_n120150_$tag/*.root > /tmp/nohup.out & 
+nohup hadd -f $scratchdir/${type}_n150185_$tag.root $hadoopdir/${type}_n150185_$tag/*.root > /tmp/nohup1.out &
+nohup hadd -f $scratchdir/${type}_n185220_$tag.root $hadoopdir/${type}_n185220_$tag/*.root > /tmp/nohup2.out &
+nohup hadd -f $scratchdir/${type}_n220260_$tag.root $hadoopdir/${type}_n220260_$tag/*.root > /tmp/nohup3.out &
+EOF
+
+chmod u+x merge_${type}_pPb

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE=$1
+
+echo $FILE
+while read line; do
+   echo "file $COUNT: $line" 
+   let COUNT=$COUNT+1
+done < $FILE

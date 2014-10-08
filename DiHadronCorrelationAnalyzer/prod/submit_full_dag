@@ -1,0 +1,67 @@
+#!/bin/sh
+PWD=`pwd`
+dir=$CMSSW_BASE/src/FlowCorrAna/DiHadronCorrelationAnalyzer
+dataset=$2
+tag=$3
+addition=$4
+filenumperjob=$5
+
+SETUPFILE_BASE="$dir/prod/setupfiles/setupfile_BASE"
+SETUPFILE="$dir/prod/setupfiles/setupfile_$dataset"
+
+source $SETUPFILE_BASE
+source $SETUPFILE
+
+echo "------------------------------------------------------------"
+echo "SETUPFILE=$SETUPFILE"
+echo "FILESETNAME=$FILESETNAME"
+echo "------------------------------------------------------------"
+
+filenum=$(cat $FILESETDIR/fileset_${EVENTTYPE}_${tag}.txt | wc | awk '{print $1}')
+let jobnum=filenum/filenumperjob
+let jobmod=filenum%filenumperjob
+if [ $jobmod -eq 0 ]; then
+  let jobnum=jobnum-1
+fi
+
+echo "Total of $filenum files to be processed;"
+echo "Processe $filenumperjob files per job;"
+echo "Total of $(($jobnum+1)) jobs to be processed;"
+
+mkdir -p dag
+
+dagfile=$PWD/dag/${dataset}_${tag}_${addition}.dag
+cat > $dagfile << EOF
+EOF
+
+NZVTXBIN=$(($((${ZVTXMAX}-${ZVTXMIN}))/${ZVTXBIN}))
+j="PARENT "
+for ibin in `seq 1 ${NZVTXBIN}`
+do
+  let iZVTXMIN=${ZVTXMIN}+$((${ibin}-1))*${ZVTXBIN}
+  let iZVTXMAX=${ZVTXMIN}+${ibin}*${ZVTXBIN}
+  for ((k=0; k<${#CENTMIN[@]}; k++))
+  do
+   for ((i=0; i<${#NMIN[@]}; i++))
+   do
+    for run in `seq 0 $jobnum` 
+    do
+      let ffrom=$run*$filenumperjob
+      let fto=($run+1)*$filenumperjob
+echo "${iZVTXMIN} ${iZVTXMAX} ${NMIN[$i]} ${NMAX[$i]} ${CENTMIN[$k]} ${CENTMAX[$k]}"
+      $PWD/condor_dag.sh $1 $dataset $tag $addition $ffrom $fto ${iZVTXMIN} ${iZVTXMAX} ${NMIN[$i]} ${NMAX[$i]} ${CENTMIN[$k]} ${CENTMAX[$k]}
+      j=${j}Work-$dataset-$tag-$addition-ffrom${ffrom}-fto${fto}-zvtxmin${iZVTXMIN}-zvtxmax${iZVTXMAX}-nmin${NMIN[$i]}-nmax${NMAX[$i]}-centmin${CENTMIN[$k]}-centmax${CENTMAX[$k]}" " 
+      cat >> $dagfile << EOF 
+      Job Work-$dataset-$tag-$addition-ffrom${ffrom}-fto${fto}-zvtxmin${iZVTXMIN}-zvtxmax${iZVTXMAX}-nmin${NMIN[$i]}-nmax${NMAX[$i]}-centmin${CENTMIN[$k]}-centmax${CENTMAX[$k]} $PWD/subfiles/subfile_${dataset}-$tag-$addition-output-ffrom${ffrom}-fto${fto}-zvtxmin${iZVTXMIN}-zvtxmax${iZVTXMAX}-nmin${NMIN[$i]}-nmax${NMAX[$i]}-centmin${CENTMIN[$k]}-centmax${CENTMAX[$k]}
+EOF
+    done
+   done
+  done
+done
+
+$PWD/condormultimerge_dag.sh mergeAllmulti $dataset $tag $addition
+echo "Job Final $PWD/subfiles/subfile_${dataset}-$tag-$addition-final" >> $dagfile 
+
+j=${j}" CHILD Final"
+echo ${j} >> $dagfile
+condor_submit_dag -f  $dagfile
