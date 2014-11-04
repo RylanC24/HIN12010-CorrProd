@@ -14,12 +14,13 @@ corr_ana_HI = corr_ana.clone(
   yvtxcenter = cms.double(0.037),
   zvtxcenter = cms.double(-0.54),
 
-  IsHarmonics = cms.bool(True),
+  IsHI = cms.bool(True),
   IsHITrkQuality = cms.bool(True),
   IsPPTrkQuality = cms.bool(False),
 )
 
 corr_ana_HI_highPt = corr_ana_HI.clone(
+  IsDebug = cms.bool(False),
   IsHarmonics = cms.bool(False),
   pttrgmin = cms.vdouble(12.0),
   pttrgmax = cms.vdouble(10000.0),
@@ -28,6 +29,7 @@ corr_ana_HI_highPt = corr_ana_HI.clone(
 )
 
 corr_ana_pp_highPt = corr_ana.clone(
+  IsDebug = cms.bool(False),
   IsHarmonics = cms.bool(False),
   pttrgmin = cms.vdouble(12.0),
   pttrgmax = cms.vdouble(10000.0),
