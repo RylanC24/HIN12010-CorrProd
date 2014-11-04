@@ -26,3 +26,12 @@ corr_ana_HI_highPt = corr_ana_HI.clone(
   ptassmin = cms.vdouble(0.5,1.0,2.0,3.0,4.0,6.0,8.0),
   ptassmax = cms.vdouble(1.0,2.0,3.0,4.0,6.0,8.0,12.0)
 )
+
+corr_ana_pp_highPt = corr_ana.clone(
+  IsHarmonics = cms.bool(False),
+  pttrgmin = cms.vdouble(12.0),
+  pttrgmax = cms.vdouble(10000.0),
+  ptassmin = cms.vdouble(0.5,1.0,2.0,3.0,4.0,6.0,8.0),
+  ptassmax = cms.vdouble(1.0,2.0,3.0,4.0,6.0,8.0,12.0),
+  EffFileName = cms.string('../data/TrkCorr/TrackCorrection_PP_pTmax50_Oct28.root')
+)
