@@ -167,17 +167,7 @@ void DiHadronCorrelationMultiBase::beginRun(const edm::Run& iRun, const edm::Eve
     hHFvsZDC = theOutputs->make<TH2D>("hfvszdc",";HF Sum E_{T}; ZDC Sum E_{T};",600,0,6000,1000,0,80000);
 //    hNpart = theOutputs->make<TH1D>("Npart",";N_{part}",500,0,500);
   }
-  if(cutPara.IsInvMass) hInvMassVsPt_Signal = theOutputs->make<TH2D>("invmassvspt_signal",";p_{T}(GeV);Invariant Mass (GeV)",500,0,50,1500,0,3);
-  if(cutPara.IsEventEngineer) hEventEngineer = theOutputs->make<TH2D>("eventengineer",";centrality;q_{2}",200,0,200,1000,0,1.0);
 
-/*
-  hV0InvMassVsPt = theOutputs->make<TH2D>("v0invmassvspt",";p_{T}(GeV);Invariant Mass (GeV)",200,0,20,1500,0,1.5);
-  hV0InvMassVsPt_masspipicut = theOutputs->make<TH2D>("v0invmassvspt_masspipicut",";p_{T}(GeV);Invariant Mass (GeV)",200,0,20,1500,0,1.5);
-  hV0AP = theOutputs->make<TH2D>("v0ap",";#alpha;#q_{T}",1000,-1,1,1000,0,0.5);
-  hV0AP_masspipicut = theOutputs->make<TH2D>("v0ap_masspipicut",";#alpha;#q_{T}",1000,-1,1,1000,0,0.5);
-  hV0MassPiPi = theOutputs->make<TH1D>("v0masspipi",";mass_pipi (GeV/c)",100,0.4,0.6);
-  hV0MassEE = theOutputs->make<TH1D>("v0massee",";mass_ee (GeV/c)",100,0.0,0.2);
-*/
   for(int itrg=0;itrg<(int)(cutPara.pttrgmin.size());itrg++)
   {
     hMult_trg[itrg] = theOutputs->make<TH1D>(Form("mult_trg_%d",itrg),";n^{trg}",2000,0,2000);
