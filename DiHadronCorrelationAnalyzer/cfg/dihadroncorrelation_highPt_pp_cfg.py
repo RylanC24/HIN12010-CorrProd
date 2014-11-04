@@ -2,14 +2,14 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("corr")
 process.load("FWCore.MessageService.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 5000
+process.MessageLogger.cerr.FwkReport.reportEvery = 20000
 
 ### conditions
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 process.GlobalTag.globaltag = 'GR_P_V43D::All'
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10)
+    input = cms.untracked.int32(-1)
 )
 
 from HeavyIonsAnalysis.Configuration.CommonFunctions_cff import *
@@ -34,7 +34,7 @@ process.options = cms.untracked.PSet(
 
 # Additional output definition
 process.TFileService = cms.Service("TFileService",
-                                   fileName = cms.string('dihadroncorrelation_pp.root')
+                                   fileName = cms.string('dihadroncorrelation_pp_TEST2.root')
                                    )
 
 process.ana_step = cms.Path(process.corr_ana_pp_highPt)
